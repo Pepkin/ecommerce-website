@@ -24,7 +24,7 @@ const config: Config = {
         
           "info": "#00d3ff",
         
-          "success": "#a3e635",
+          "success": "#65a30d",
         
           "warning": "#dc2626",
         
