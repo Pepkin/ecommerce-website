@@ -4,7 +4,7 @@ import { Metadata } from "next"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 import { cache } from "react"
-import AddToCartButton from "./addToCartButton"
+import AddToCartButton from "./AddToCartButton"
 import { incrementProductQuantity } from "./actions"
 
 interface ProdutPageProps {
