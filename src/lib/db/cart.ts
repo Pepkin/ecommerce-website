@@ -11,7 +11,7 @@ export type ShoppingCart = CartWithProducts & {
     subtotal: number,
 }
 
-export async function getCart(): Promise< ShoppingCart | null>{
+export async function getCart(): Promise < ShoppingCart| null>{
     const localCardId = cookies().get("localCardId")?.value;
     const cart = localCardId ? 
     await prisma.cart.findUnique({
