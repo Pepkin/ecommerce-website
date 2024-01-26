@@ -12,13 +12,13 @@ export type ShoppingCart = CartWithProducts & {
 }
 
 export async function getCart(): Promise < ShoppingCart| null>{
-    const localCardId = cookies().get("localCardId")?.value;
+    const localCardId = cookies().get("localCardId")?.toString()
     const cart = localCardId ? 
     await prisma.cart.findUnique({
         where: {id: localCardId},
         include: { items: { include: { product: true } } }
     })
-    : null;
+    : null
 
     if(!cart){
         return null
@@ -27,8 +27,11 @@ export async function getCart(): Promise < ShoppingCart| null>{
     return {
         ...cart,
         size: cart.items.reduce((acc, item) => acc + item.quantity, 0),
-        subtotal: cart.items.reduce((acc, item) => acc+ item.quantity * item.product.price, 0)
-    }
+        subtotal: cart.items.reduce(
+            (acc, item) => acc+ item.quantity * item.product.price, 
+            0 
+        ),
+    };
 }
 
 export async function createCart(): Promise < ShoppingCart > {
