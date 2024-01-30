@@ -1,29 +1,27 @@
-"use client";
+"use client"
 
-import { useState, useTransition } from "react";
+import { Span } from "next/dist/trace";
+import { useState, useTransition } from "react"
 
-interface AddToCartButtonProps{
+interface AddToCartButtonProps {
     productId: string,
     incrementProductQuantity: (productId: string) => Promise<void>
 }
 
 export default function AddToCartButton({productId, incrementProductQuantity} : AddToCartButtonProps){
-
     const [isPending, startTransition] = useTransition();
     const [success, setSuccess] = useState(false);
-
+    
     return (
         <div className="flex items-center gap-2">
-            <button 
-            className="btn btn-primary"
+            <button className="btn btn-primary" 
             onClick={() => {
                 setSuccess(false);
                 startTransition(async () => {
                     await incrementProductQuantity(productId);
                     setSuccess(true);
                 })
-            }}
-            >
+            }}>
                 Add to Cart
                 <svg xmlns="http://www.w3.org/2000/svg" 
                 className="h-5 w-5" 
@@ -35,8 +33,8 @@ export default function AddToCartButton({productId, incrementProductQuantity} : 
                     <path d="M22 6H6.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             </button>
-            {isPending && <span className="loading loading-infinity loading-md"/>}
-            {!isPending && success && (<span className="text-success">Added to Cart</span>)}
+            {isPending && <span className="loading loading-infinity loading-md"></span>}
+            {!isPending && success && <span className="text-success">Added to Cart</span>}
         </div>
     )
 }
