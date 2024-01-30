@@ -32,7 +32,7 @@ export default function ShoppingCartButton({cart} : ShoppingCartButtonProps){
             </label>
             <div
             tabIndex={0}
-            className="card dropdown-content card-compact mt-3 w-52 bg:base-100 shadow z-30"
+            className="card dropdown-content card-compact mt-3 w-52 bg-base-100 shadow z-50"
             >
                 <div className="card-body ">
                     <span className="text-lg font-bold">{cart?.size || 0} Items</span>
