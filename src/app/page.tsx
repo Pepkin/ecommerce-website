@@ -3,20 +3,14 @@ import { prisma } from '@/lib/db/prisma'
 import Image from 'next/image'
 import Link from 'next/link'
 
-interface HomeProps {
-  searchParams: {page: string}
-}
-
-export default async function Home({searchParams: {page}} : HomeProps) {
-  
+export default async function Home() {
 
   const products = await prisma.product.findMany({
-    orderBy: {id: "desc"},
+    orderBy: {id: "desc"}
   })
 
   return (
-    <div className='flex flex-col items-center'>
-      
+    <div>
       <div className='hero rounded-xl bg-base-200' >
         <div className='hero-content flex-col lg:flex-row'>
           <Image 
