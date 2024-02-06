@@ -45,8 +45,8 @@ export async function getCart(): Promise <ShoppingCart| null> {
 
     return {
         ...cart,
-        size: cart.items.reduce((acc: any, item: { quantity: any; }) => acc + item.quantity, 0),
-        subtotal: cart.items.reduce((acc: number, item: { quantity: number; product: { price: number; }; }) => acc + item.quantity * item.product.price, 0)
+        size: cart.items.reduce((acc, item) => acc + item.quantity, 0),
+        subtotal: cart.items.reduce((acc, item) => acc + item.quantity * item.product.price, 0)
     }
 }
 
@@ -97,7 +97,7 @@ export async function  mergeAnonymousCartIntoUserCart(userId: string) {
         })
     
 
-    await prisma.$transaction(async (tx: { cartItem: { deleteMany: (arg0: { where: { cartId: any; }; }) => any; }; cart: { update: (arg0: { where: { id: any; }; data: { items: { createMany: { data: { productId: any; quantity: any; }[]; }; }; }; }) => any; create: (arg0: { data: { userId: string; items: { createMany: { data: any; }; }; }; }) => any; delete: (arg0: { where: { id: any; }; }) => any; }; }) => {
+    await prisma.$transaction(async tx => {
         if(userCart){
             const mergedCartItems = mergeCartItems(localCart.items, userCart.items)
 
@@ -124,7 +124,7 @@ export async function  mergeAnonymousCartIntoUserCart(userId: string) {
                     userId,
                     items: {
                         createMany: {
-                            data: localCart.items.map((item: { productId: any; quantity: any; }) => ({
+                            data: localCart.items.map(item => ({
                                 productId: item.productId,
                                 quantity: item.quantity,
                             }))
